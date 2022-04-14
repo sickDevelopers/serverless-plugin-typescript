@@ -102,12 +102,32 @@ export function getSourceFiles(
   options: ts.CompilerOptions
 ): string[] {
   const program = ts.createProgram(rootFileNames, options)
+
+  /*
+  * EMS SPECIFIC CODE
+  *
+  */
+  const files = [];
+
+  function walkDir(dir) {
+      fs.readdirSync(dir).forEach(File => {
+          const absPath = path.join(dir, File);
+          if (fs.statSync(absPath).isDirectory()) {
+              return walkDir(absPath);
+          }
+          else return files.push(absPath);
+      });
+  }
+
+  walkDir(`${options.rootDir}/common`);
+
+
   const programmFiles = program.getSourceFiles()
     .map(file => file.fileName)
     .filter(file => {
       return file.split(path.sep).indexOf('node_modules') < 0
     })
-  return programmFiles
+  return programmFiles.concat(files)
 }
 
 export function getTypescriptConfig(
