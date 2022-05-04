@@ -116,6 +116,7 @@ function getSourceFiles(rootFileNames, options) {
     walkDir(`${options.rootDir}/common`);
     const programmFiles = program.getSourceFiles()
         .map(file => file.fileName)
+        .filter(file => file.endsWith('index.ts'))
         .filter(file => {
         return file.split(path.sep).indexOf('node_modules') < 0;
     });

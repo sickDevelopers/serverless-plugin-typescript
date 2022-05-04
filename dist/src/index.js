@@ -123,7 +123,7 @@ class TypeScriptPlugin {
             this.serverless.cli.log('Waiting for changes...');
             this.isWatching = true;
             yield new Promise((resolve, reject) => {
-                (0, watchFiles_1.watchFiles)(this.rootFileNames, this.originalServicePath, () => {
+                watchFiles_1.watchFiles(this.rootFileNames, this.originalServicePath, () => {
                     this.serverless.pluginManager.spawn('invoke:local').catch(reject);
                 });
             });
@@ -136,7 +136,7 @@ class TypeScriptPlugin {
             }
             this.serverless.cli.log(`Watching typescript files...`);
             this.isWatching = true;
-            (0, watchFiles_1.watchFiles)(this.rootFileNames, this.originalServicePath, this.compileTs.bind(this));
+            watchFiles_1.watchFiles(this.rootFileNames, this.originalServicePath, this.compileTs.bind(this));
         });
     }
     compileTs() {

@@ -4,14 +4,14 @@ const typescript_1 = require("../src/typescript");
 const path = require("path");
 describe('getTypescriptConfig', () => {
     it(`returns default typescript configuration if the one provided doesn't exist`, () => {
-        expect((0, typescript_1.getTypescriptConfig)('/ciaone/my-folder')).toEqual((0, typescript_1.makeDefaultTypescriptConfig)());
+        expect(typescript_1.getTypescriptConfig('/ciaone/my-folder')).toEqual(typescript_1.makeDefaultTypescriptConfig());
     });
     it(`returns default typescript configuration if the one provided doesn't exist when tsConfigFileLocation provided`, () => {
-        expect((0, typescript_1.getTypescriptConfig)(process.cwd(), './tests/assets/tsconfigs/tsconfig.nonexistent.json')).toEqual((0, typescript_1.makeDefaultTypescriptConfig)());
+        expect(typescript_1.getTypescriptConfig(process.cwd(), './tests/assets/tsconfigs/tsconfig.nonexistent.json')).toEqual(typescript_1.makeDefaultTypescriptConfig());
     });
     it(`returns custom typescript configuration if tsConfigFileLocation provided`, () => {
         const tsconfigDir = path.join(process.cwd(), './tests/assets/tsconfigs/');
-        expect((0, typescript_1.getTypescriptConfig)(tsconfigDir, 'tsconfig.default.json')).toEqual({
+        expect(typescript_1.getTypescriptConfig(tsconfigDir, 'tsconfig.default.json')).toEqual({
             allowJs: true,
             configFilePath: undefined,
             lib: ["lib.es2015.d.ts"],
@@ -27,7 +27,7 @@ describe('getTypescriptConfig', () => {
     it(`throws error if configuration from tsConfigFileLocation is invalid`, () => {
         expect.assertions(1);
         try {
-            (0, typescript_1.getTypescriptConfig)(process.cwd(), './tests/assets/tsconfigs/tsconfig.invalid.json');
+            typescript_1.getTypescriptConfig(process.cwd(), './tests/assets/tsconfigs/tsconfig.invalid.json');
         }
         catch (e) {
             expect(e.message).toBe('Invalid TSConfig file - is this file JSON format?');

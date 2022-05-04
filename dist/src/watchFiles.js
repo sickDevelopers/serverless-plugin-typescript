@@ -7,7 +7,7 @@ function watchFiles(rootFileNames, originalServicePath, cb) {
     const tsConfig = typescript.getTypescriptConfig(originalServicePath);
     let watchedFiles = typescript.getSourceFiles(rootFileNames, tsConfig);
     watchedFiles.forEach(fileName => {
-        (0, fs_1.watchFile)(fileName, { persistent: true, interval: 250 }, watchCallback);
+        fs_1.watchFile(fileName, { persistent: true, interval: 250 }, watchCallback);
     });
     function watchCallback(curr, prev) {
         // Check timestamp
@@ -19,12 +19,12 @@ function watchFiles(rootFileNames, originalServicePath, cb) {
         const newWatchFiles = typescript.getSourceFiles(rootFileNames, tsConfig);
         watchedFiles.forEach(fileName => {
             if (newWatchFiles.indexOf(fileName) < 0) {
-                (0, fs_1.unwatchFile)(fileName, watchCallback);
+                fs_1.unwatchFile(fileName, watchCallback);
             }
         });
         newWatchFiles.forEach(fileName => {
             if (watchedFiles.indexOf(fileName) < 0) {
-                (0, fs_1.watchFile)(fileName, { persistent: true, interval: 250 }, watchCallback);
+                fs_1.watchFile(fileName, { persistent: true, interval: 250 }, watchCallback);
             }
         });
         watchedFiles = newWatchFiles;

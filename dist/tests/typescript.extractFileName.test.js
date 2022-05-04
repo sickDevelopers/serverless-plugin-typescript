@@ -30,14 +30,14 @@ const functions = {
 };
 describe('extractFileName', () => {
     it('get function filenames from serverless service for a non-google provider', () => {
-        expect((0, typescript_1.extractFileNames)(process.cwd(), 'aws', functions)).toEqual([
+        expect(typescript_1.extractFileNames(process.cwd(), 'aws', functions)).toEqual([
             'tests/assets/hello.ts',
             'tests/assets/world.ts',
             'tests/assets/jsfile.js',
         ]);
     });
     it('get function filename from serverless service for a google provider', () => {
-        expect((0, typescript_1.extractFileNames)(path.join(process.cwd(), 'example'), 'google')).toEqual([
+        expect(typescript_1.extractFileNames(path.join(process.cwd(), 'example'), 'google')).toEqual([
             'handler.ts'
         ]);
     });
